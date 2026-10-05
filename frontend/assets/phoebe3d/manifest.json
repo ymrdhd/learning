@@ -1,0 +1,107 @@
+{
+  "source": "用户提供的「菲比 Phoebe」6 情绪 × 3 视角表情立牌宫格图",
+  "source_image": "source.png",
+  "generated_by": "tools/crop_phoebe3d_sheet.py（32×32 分块迭代估出的 2D 背景场 + 「到背景距离 / 局部梯度」双判据 + 从画布边缘泛洪，再补一条「平滑亮区」通道跨过行间白色分隔带与公仔脚下亮面；只把与画布边缘连通的背景域置为透明，白色帽子靠梯度阻断保护不被吃掉）",
+  "canvas": [
+    338,
+    210
+  ],
+  "bottom_aligned": true,
+  "moods": [
+    {
+      "key": "happy",
+      "label": "开心"
+    },
+    {
+      "key": "sad",
+      "label": "难过"
+    },
+    {
+      "key": "like",
+      "label": "点赞"
+    },
+    {
+      "key": "cheer",
+      "label": "加油"
+    },
+    {
+      "key": "cute",
+      "label": "可爱"
+    },
+    {
+      "key": "encourage",
+      "label": "鼓励"
+    }
+  ],
+  "views": [
+    {
+      "key": "front",
+      "label": "正面",
+      "angle": 0,
+      "mirror": false
+    },
+    {
+      "key": "side",
+      "label": "侧面",
+      "angle": 90,
+      "mirror": false
+    },
+    {
+      "key": "back",
+      "label": "背面",
+      "angle": 180,
+      "mirror": false
+    }
+  ],
+  "frames": [
+    {
+      "key": "front",
+      "view": "front",
+      "angle": 0,
+      "mirror": false
+    },
+    {
+      "key": "side",
+      "view": "side",
+      "angle": 90,
+      "mirror": false
+    },
+    {
+      "key": "back",
+      "view": "back",
+      "angle": 180,
+      "mirror": false
+    },
+    {
+      "key": "side-mirror",
+      "view": "side",
+      "angle": 270,
+      "mirror": true
+    }
+  ],
+  "files": {
+    "happy_front": "happy_front.png",
+    "happy_side": "happy_side.png",
+    "happy_back": "happy_back.png",
+    "sad_front": "sad_front.png",
+    "sad_side": "sad_side.png",
+    "sad_back": "sad_back.png",
+    "like_front": "like_front.png",
+    "like_side": "like_side.png",
+    "like_back": "like_back.png",
+    "cheer_front": "cheer_front.png",
+    "cheer_side": "cheer_side.png",
+    "cheer_back": "cheer_back.png",
+    "cute_front": "cute_front.png",
+    "cute_side": "cute_side.png",
+    "cute_back": "cute_back.png",
+    "encourage_front": "encourage_front.png",
+    "encourage_side": "encourage_side.png",
+    "encourage_back": "encourage_back.png"
+  },
+  "note": "真实视角只有三个（正面/侧面/背面），270° 由侧面水平镜像补足；每种情绪的三张图共用 338×210 同一画布且底对齐，切换情绪/旋转时脚底不会跳动。素材由 1536×1024 的「6 情绪 × 3 视角」宫格图裁切而来，单格公仔主体实测 136–194px 高，故立牌按接近 1:1 像素显示（显示区 322×200）。",
+  "cell_size": [
+    322,
+    194
+  ]
+}

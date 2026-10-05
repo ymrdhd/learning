@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>菲比同学 · 自由练习</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🧸 菲比同学</h1>
+
+<div class="card">
+
+<div class="row">
+    <label>学生
+        <select id="student" onchange="onStudentChange()"></select>
+    </label>
+    <label>科目
+        <select id="subject" onchange="onSubjectChange()">
+            <option value="数学">数学</option>
+            <option value="语文">语文</option>
+            <option value="英语">英语</option>
+        </select>
+    </label>
+    <label>知识点
+        <input id="knowledge" type="text" placeholder="菲比按你的水平挑">
+    </label>
+</div>
+
+<p class="meta" id="knowledge-hint">菲比正在看你的水平，帮你挑一个知识点…</p>
+
+<div class="mode">
+    <button id="mode-choice" class="mode-btn active" onclick="setMode('choice')">选择题</button>
+    <button id="mode-blank" class="mode-btn" onclick="setMode('blank')">填空题</button>
+</div>
+
+<div class="voice-row">
+    <label class="voice-toggle">
+        <input id="voice-enabled" type="checkbox" checked onchange="onVoiceToggle()">
+        <span>🔊 语音读题</span>
+    </label>
+    <label class="voice-speed">语速
+        <select id="voice-rate" onchange="onVoiceRateChange()">
+            <option value="0.7">很慢</option>
+            <option value="0.85" selected>慢</option>
+            <option value="1">正常</option>
+        </select>
+    </label>
+    <span id="voice-status" class="meta"></span>
+</div>
+
+<button type="button" id="main-btn" class="ph-btn ph-btn--primary" onclick="loadQuestion()">开始学习</button>
+
+<p class="meta link-row">
+    <a href="today.html">📅 今日学习</a>
+    <a href="review.html">🌱 知识浇水</a>
+    <a href="ability.html">📊 我的能力水平</a>
+    <a href="knowledge_map.html">🗺️ 知识掌握地图</a>
+    <a href="wrong_book.html">📕 错题中心</a>
+    <a href="recovery.html">🩺 错题康复</a>
+</p>
+
+<div id="review-panel" class="review-panel hidden"></div>
+
+<div id="sheet-tag" class="sheet-tag hidden"></div>
+
+<div id="question"></div>
+
+<div id="options"></div>
+
+<div id="blank-box" class="hidden ph-blank">
+    <input id="blank-input" class="ph-input" type="text" placeholder="输入答案，按回车提交"
+           onkeydown="if(event.key==='Enter')submitBlank()">
+    <button type="button" class="ph-btn ph-btn--primary" onclick="submitBlank()">我做好了</button>
+</div>
+
+<div id="feedback"></div>
+
+<div id="progress" class="meta"></div>
+
+</div>
+
+<script src="phoebe.js"></script>
+<script src="phoebe3d.js"></script>
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="app.js"></script>
+
+
+<script>
+  if (window.UIShell) {
+    UIShell.applySettings();
+    UIShell.mountNav("today");
+    UIShell.loadStudents().then(function (list) {
+      var me = list.filter(function (s) { return String(s.id) === UIShell.getStudentId(); })[0];
+      if (me) UIShell.applyAgeMode(me.grade);
+    });
+  }
+</script>
+</body>
+</html>

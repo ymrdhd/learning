@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>正在诊断 · 菲比同学</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🧪 能力诊断中</h1>
+
+<div class="card">
+
+<div class="diag-header">
+    <p class="diag-line">正在测试：<b id="subject-text">数学</b></p>
+    <p class="diag-line">当前：<b id="stage-text">一年级基础</b></p>
+    <p class="diag-line">进度：<b id="progress-text">0/15</b></p>
+</div>
+
+<div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+
+<div class="voice-row">
+    <button class="voice-btn" data-speaking="0" onclick="speakQuestion()">🔊 读题目</button>
+    <span id="voice-status" class="meta"></span>
+</div>
+
+<div id="question"></div>
+
+<div id="options"></div>
+
+<div id="feedback"></div>
+
+<p class="meta">诊断过程中不显示答案，做完会给你一份能力报告～</p>
+
+<p class="meta link-row"><a href="index.html">← 退出诊断（回到练习）</a></p>
+
+</div>
+
+<script src="phoebe.js"></script>
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="diagnostic_test.js"></script>
+
+
+<script>
+  if (window.UIShell) { UIShell.applySettings(); }
+</script>
+</body>
+</html>

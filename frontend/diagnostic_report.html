@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>能力报告 · 菲比同学</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>📊 我的能力报告</h1>
+
+<div class="card">
+
+<div class="row">
+    <label>学生
+        <select id="student" onchange="onStudentChange()"></select>
+    </label>
+    <label>科目
+        <select id="subject" onchange="loadReport()">
+            <option>数学</option>
+            <option>语文</option>
+            <option>英语</option>
+        </select>
+    </label>
+</div>
+
+<div id="report"></div>
+
+<p class="meta link-row">
+    <a href="diagnostic.html">🧪 去做能力诊断</a>
+    <a href="index.html">← 回到日常练习</a>
+</p>
+
+</div>
+
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="diagnostic_report.js"></script>
+
+
+<script>
+  if (window.UIShell) { UIShell.applySettings(); }
+</script>
+</body>
+</html>

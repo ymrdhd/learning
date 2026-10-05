@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>菲比同学 · 错题康复（V2.5）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🩺 错题康复</h1>
+
+<div class="card">
+
+    <p class="p3d-voice-row">
+        <label class="voice-toggle">
+            <input id="phoebe-voice" type="checkbox" checked onchange="onPhoebeVoiceToggle()">
+            <span>🔊 菲比语音</span>
+        </label>
+    </p>
+
+    <div class="row">
+        <label>学生
+            <select id="student" onchange="onStudentChange()"></select>
+        </label>
+        <button id="refresh-btn" class="btn recovery-refresh-btn" onclick="loadRecovery()">🔄 重新看看我的错题</button>
+    </div>
+
+    <div id="status" class="meta"></div>
+    <div id="recovery-list" class="recovery-list"></div>
+
+    <div id="recovery-work" class="hidden">
+
+        <p id="recovery-pick" class="recovery-pick"></p>
+
+        <button id="recovery-start-btn" class="btn btn-primary recovery-main-btn" onclick="startRecovery()">
+            🚀 开始康复这一题
+        </button>
+
+        <div id="question" class="recovery-qtext"></div>
+
+        <div id="options" class="options recovery-options"></div>
+
+        <div id="blank-box" class="hidden">
+            <input id="blank-input" type="text" placeholder="输入答案，按回车提交"
+                   onkeydown="if(event.key==='Enter')answerRecoveryBlank()">
+            <button id="blank-submit" class="btn btn-primary recovery-main-btn" onclick="answerRecoveryBlank()">提交答案</button>
+        </div>
+
+        <div id="hint-box" class="hidden"></div>
+
+        <div id="result"></div>
+
+    </div>
+
+    <div id="recovery-done" class="recovery-done hidden"></div>
+
+    <p class="meta link-row">
+        <a href="index.html">🏠 自由练习</a>
+        <a href="today.html">📅 今日学习</a>
+        <a href="wrong_book.html">📕 错题中心</a>
+        <a href="ability.html">📊 我的能力水平</a>
+    </p>
+
+</div>
+
+<script src="phoebe.js"></script>
+<script src="phoebe3d.js"></script>
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="recovery.js"></script>
+
+
+<script>
+  if (window.UIShell) {
+    UIShell.applySettings();
+    UIShell.mountNav("wrong");
+    UIShell.loadStudents().then(function (list) {
+      var me = list.filter(function (s) { return String(s.id) === UIShell.getStudentId(); })[0];
+      if (me) UIShell.applyAgeMode(me.grade);
+    });
+  }
+</script>
+</body>
+</html>

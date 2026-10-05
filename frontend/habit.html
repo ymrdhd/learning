@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>学习习惯简报 · 菲比同学</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+
+<h1>📅 学习习惯简报</h1>
+
+<div class="card">
+    <p class="row">
+        <label for="student">小朋友：</label>
+        <select id="student"></select>
+        <button id="refresh-btn" class="mode-btn" onclick="loadProfile()">🔄 刷新</button>
+    </p>
+    <p class="task-title" id="habit-streak">正在读取学习记录…</p>
+    <p class="habit-progress" id="habit-level"></p>
+</div>
+
+<div class="card">
+    <p class="task-title">我的学习数据</p>
+    <div class="habit-grid" id="habit-numbers"></div>
+</div>
+
+<div class="card">
+    <p class="task-title">最近 7 天</p>
+    <div id="habit-days" class="task-list"></div>
+</div>
+
+<div class="card">
+    <p class="task-title">我的徽章</p>
+    <div id="habit-badges"></div>
+</div>
+
+<div class="card">
+    <p class="task-title">休息保护（每月 2 次，休息一天也不断连续）</p>
+    <p class="meta" id="habit-rest-text"></p>
+    <p class="row">
+        <button id="rest-btn" class="mode-btn" onclick="useRest()">🌙 今天休息一天</button>
+    </p>
+    <p class="meta" id="habit-rest-result"></p>
+</div>
+
+<p class="meta link-row">
+    <a href="today.html">🐼 今日学习</a>
+    <a href="daily.html">🎉 今日完成</a>
+    <a href="recall.html">🧠 主动回忆</a>
+    <a href="recovery.html">🩺 错题康复</a>
+</p>
+
+</div>
+
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="habit.js"></script>
+
+
+<script>
+  if (window.UIShell) {
+    UIShell.applySettings();
+    UIShell.mountNav("today");
+    UIShell.loadStudents().then(function (list) {
+      var me = list.filter(function (s) { return String(s.id) === UIShell.getStudentId(); })[0];
+      if (me) UIShell.applyAgeMode(me.grade);
+    });
+  }
+</script>
+</body>
+</html>

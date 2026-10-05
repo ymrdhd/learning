@@ -1,0 +1,44 @@
+# ---- Python 编译 / 运行缓存 ----
+python-venv/
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# ---- 编辑器 / 工具缓存（DSH 任务板、IDE 本地配置）----
+.idea/
+.vscode/
+.dsh-swarm/
+
+# ---- 本地数据库与私密配置不入库 ----
+*.db
+*.db.v15-backup
+*.db-journal
+*.db-wal
+*.db-shm
+.env
+.env.*
+!.env.example
+
+# ---- 测试脚本用的临时库与临时目录（各套件自建，禁止入库）----
+_verify_*.db*
+_selftest_*/
+_t_*/
+
+# ---- 运行日志与自测输出（跑完即过期，不入库）----
+*.log
+out_*.txt
+
+# ---- 手工快照备份目录（项目无 git 时的回退网，见 backup/README.md）----
+backup/
+
+# ---- 自动更新与发布（V2.8）：更新日志 / 本地发布包 / GitHub 令牌不入库 ----
+update.log
+dist/
+tools/.github_token

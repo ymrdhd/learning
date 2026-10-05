@@ -1,0 +1,14 @@
+[
+{
+"grade":"四年级",
+"semester":"上册",
+"knowledge":"三位数乘两位数",
+"difficulty":70
+},
+{
+"grade":"五年级",
+"semester":"下册",
+"knowledge":"分数运算",
+"difficulty":75
+}
+]

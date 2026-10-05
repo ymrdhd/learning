@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>我的挑战 · 菲比同学</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 顶部：我是谁 -->
+<div class="card">
+    <div class="ph-topbar">
+        <span class="ph-avatar" aria-hidden="true">🐼</span>
+        <div class="ph-who">
+            <span class="ph-who-name" id="who-name">小朋友</span>
+            <span class="ph-who-grade ph-num" id="who-grade"></span>
+        </div>
+        <button type="button" class="ph-btn ph-btn--ghost" id="switch-student" onclick="toggleStudentPicker()">切换学生</button>
+    </div>
+    <div class="ph-students hidden" id="student-picker"></div>
+
+    <h1 class="ph-title">⚔️ 我的挑战</h1>
+    <p class="ph-lead">做错过的题，菲比会陪你一道一道攻克。</p>
+    <p class="ph-greeting" id="phoebe-greeting">🐼 菲比：看看你的挑战吧～</p>
+</div>
+
+<!-- 三色状态统计 -->
+<div id="challenge-summary"></div>
+<div id="challenge-status"></div>
+
+<!-- 挑战清单：🔴 等我攻克 / 🟡 正在训练 / 🟢 已经攻克 -->
+<section class="card">
+    <h2 class="ph-section-title">挑战清单</h2>
+    <div id="challenge-groups"></div>
+</section>
+
+<!-- 想再看一眼（次级入口） -->
+<div class="card">
+    <h2 class="ph-section-title">想再看一眼</h2>
+    <p class="ph-row-secondary">
+        <a class="ph-btn ph-btn--secondary" href="recovery.html">🩺 错题康复训练</a>
+        <a class="ph-btn ph-btn--secondary" href="wrong_book.html">📕 错题本</a>
+        <a class="ph-btn ph-btn--secondary" href="today.html">🏠 回到今天</a>
+    </p>
+</div>
+
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="challenge.js"></script>
+<script>
+    // 页面初始化：显示设置 → 一级导航 → 拉取挑战数据
+    UIShell.applySettings();
+    UIShell.mountNav("wrong");
+    ChallengePage.init();
+</script>
+</body>
+</html>

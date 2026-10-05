@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>菲比同学 · 今天</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🐼 今天</h1>
+
+<div class="card">
+
+    <p class="ph-greeting" id="phoebe-greeting">🐼 菲比：今天先准备好你的小任务～</p>
+    <p class="p3d-voice-row">
+        <label class="voice-toggle">
+            <input id="phoebe-voice" type="checkbox" checked onchange="onPhoebeVoiceToggle()">
+            <span>🔊 菲比语音</span>
+        </label>
+    </p>
+
+    <div class="row ph-row-secondary">
+        <label class="ph-sr-only">学生
+            <select id="student" onchange="onStudentChange()"></select>
+        </label>
+        <button id="refresh-btn" type="button" class="ph-btn ph-btn--ghost"
+                onclick="loadPlan()">🔄 重新安排今天</button>
+    </div>
+
+    <!-- V2.5 学习启动仪式：GET /api/tasks/plan/{student_id} + POST /api/tasks/start（孩子只需点开始） -->
+    <div id="daily-plan" class="daily-plan">
+        <p id="plan-voice" class="ph-plan-title">📋 今天的安排</p>
+        <div id="plan-preview" class="plan-list"></div>
+        <!-- V2.8：今天的题目清单（每一项还剩几题，如 3/5，一项做完就跳过） -->
+        <div id="plan-sheet" class="plan-sheet"></div>
+        <div class="ph-plan-actions">
+            <button id="start-day-btn" type="button" class="ph-btn ph-btn--primary"
+                    onclick="startToday()">▶️ 开始今天的学习</button>
+            <div id="plan-status" class="meta"></div>
+        </div>
+    </div>
+
+    <!-- V2.8 积分系统：GET /api/points/{student_id}（余额 / 每日首次登录 +10 / 今日打卡由任务全部收工自动生成 / 商城占位道具，兑换不实装） -->
+    <div id="points-card" class="ph-card points-card"></div>
+
+    <!-- V2.6 统一学习会话：已完成 2/3 个小任务（不是一个任务做完就回首页重选） -->
+    <div id="session-bar" class="ph-card hidden"></div>
+
+    <!-- V2.5 今日任务区块：GET /api/tasks/today + POST /api/tasks/complete（最多 3 个文字块） -->
+    <div id="task-block" class="task-block">
+        <p id="task-title" class="task-title">📌 今日任务</p>
+        <p id="task-summary" class="task-summary"></p>
+        <p id="task-mix" class="task-mix"></p>
+        <div id="task-list" class="task-list"></div>
+    </div>
+    <div id="task-status" class="meta"></div>
+
+    <div id="plan-head" class="plan-head"></div>
+    <div id="plan-list" class="plan-list"></div>
+
+    <div id="practice" class="hidden">
+
+        <p id="question" class="qtext"></p>
+        <div id="adaptive-badge" class="adaptive-badge hidden"></div>
+
+        <div id="options" class="options"></div>
+
+        <!-- 做题页底部：读题 / 提示（安静的辅助入口，不抢主按钮） -->
+        <div class="ph-quiet-tools">
+            <button type="button" id="read-btn" class="ph-btn ph-btn--speak" onclick="readQuestion()">🔊 读题</button>
+            <button type="button" id="hint-btn" class="ph-btn ph-btn--ghost" onclick="showHint()">💡 提示</button>
+        </div>
+        <div id="hint-box" class="ph-hint hidden"></div>
+
+        <div id="blank-box" class="hidden">
+            <input id="blank-input" type="text" placeholder="输入答案，按回车提交"
+                   onkeydown="if(event.key==='Enter')submitBlank()">
+            <button id="blank-submit" class="ph-btn ph-btn--primary" onclick="submitBlank()">我做好了</button>
+        </div>
+
+        <div id="result"></div>
+
+        <div id="feel-box" class="feel-box hidden"></div>
+
+        <div class="ph-plan-actions">
+            <button id="ready-btn" type="button" class="ph-btn ph-btn--primary" onclick="submitAnswerFromBox()">我做好了</button>
+        </div>
+
+    </div>
+
+    <div id="why" class="why-box hidden"></div>
+
+    <!-- V2.6 E 今日完成页：所有今日任务做完后停在这里，不提供加练入口 -->
+    <div id="completion" class="ph-complete hidden"></div>
+
+    <div id="status" class="meta"></div>
+
+    <!-- V2.8 需求：学习者信息（头像 / 名字 / 年级 / 切换学习者）放在页面最下面 -->
+    <div class="ph-topbar">
+        <span class="ph-avatar" aria-hidden="true">🐼</span>
+        <span class="ph-name" id="who-name">小朋友</span>
+        <span class="ph-grade ph-num" id="who-grade"></span>
+        <button type="button" class="ph-btn ph-btn--ghost" id="switch-student"
+                aria-expanded="false" onclick="toggleStudentPicker()">切换学习者</button>
+    </div>
+
+    <div class="ph-students hidden" id="student-picker"></div>
+
+    <p class="meta link-row">
+        <a href="review.html">🌱 知识浇水</a>
+        <a href="index.html">🏠 自由练习</a>
+        <a href="ability.html">📊 我的能力水平</a>
+        <a href="challenge.html">⚔️ 我的挑战</a>
+        <a href="knowledge_map.html">🗺️ 知识地图</a>
+        <a href="wrong_book.html">📕 错题中心</a>
+        <a href="growth.html">🗺 成长</a>
+        <a href="study_advice.html">💡 学习建议</a>
+        <a href="recall.html">🧠 主动回忆</a>
+        <a href="daily.html">🎉 今日完成</a>
+        <a href="habit.html">📅 学习习惯</a>
+    </p>
+
+</div>
+
+<script src="phoebe.js"></script>
+<script src="phoebe3d.js"></script>
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="learning-session.js"></script>
+<script src="today.js"></script>
+
+
+<script>
+  if (window.UIShell) {
+    UIShell.applySettings();
+    UIShell.mountNav("today");
+    UIShell.loadStudents().then(function (list) {
+      var me = list.filter(function (s) { return String(s.id) === UIShell.getStudentId(); })[0];
+      if (me) UIShell.applyAgeMode(me.grade);
+    });
+  }
+</script>
+</body>
+</html>

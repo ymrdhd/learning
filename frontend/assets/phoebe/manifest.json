@@ -1,0 +1,14 @@
+{
+  "source": "https://github.com/Genius-Society/phoebe_chubby",
+  "images": [
+    "phoebe_0.png",
+    "phoebe_1.png",
+    "phoebe_2.png",
+    "phoebe.png"
+  ],
+  "sounds": [
+    "cheer_0.mp3",
+    "cheer_1.mp3",
+    "cheer_2.mp3"
+  ]
+}

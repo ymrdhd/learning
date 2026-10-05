@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>菲比同学 · 今天的知识浇水</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1 class="ph-title">🌱 今天的知识浇水</h1>
+
+<div class="card">
+
+    <div class="row">
+        <label>学生
+            <select id="student" onchange="onStudentChange()"></select>
+        </label>
+        <button id="refresh-btn" class="mode-btn" onclick="loadToday(true)">🔄 重新看看</button>
+    </div>
+
+    <div id="garden-head" class="garden-head"></div>
+    <div id="garden" class="garden"></div>
+
+    <div id="practice" class="hidden">
+
+        <p id="question" class="qtext"></p>
+        <div id="memory-badge" class="adaptive-badge hidden"></div>
+
+        <div id="options" class="options"></div>
+
+        <div id="result"></div>
+
+        <div id="feel-box" class="feel-box hidden"></div>
+
+    </div>
+
+    <div id="status" class="meta"></div>
+
+    <p class="meta link-row">
+        <a href="today.html">📅 今日学习</a>
+        <a href="index.html">✏️ 自由练习</a>
+        <a href="knowledge_map.html">🗺 我的成长</a>
+        <a href="wrong_book.html">⚔️ 我的挑战</a>
+        <a href="memory_debug.html">🔬 记忆数据（家长）</a>
+    </p>
+
+</div>
+
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="review.js"></script>
+
+
+<script>
+  if (window.UIShell) {
+    UIShell.applySettings();
+    UIShell.mountNav("today");
+    UIShell.loadStudents().then(function (list) {
+      var me = list.filter(function (s) { return String(s.id) === UIShell.getStudentId(); })[0];
+      if (me) UIShell.applyAgeMode(me.grade);
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>菲比同学 · 我的能力水平（V2.5 自动诊断）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>📊 我的能力水平</h1>
+
+<div class="card">
+
+    <div class="row">
+        <label>学生
+            <select id="student" onchange="onStudentChange()"></select>
+        </label>
+        <button class="mode-btn" onclick="loadAbility()">🔄 刷新</button>
+    </div>
+
+    <p class="diag-intro">这份水平不是考试考出来的：系统会根据你<b>每天的练习成绩</b>
+        自动判断你在哪个阶段，练得越多越准。</p>
+
+    <div id="status" class="meta"></div>
+    <div id="overall"></div>
+    <div id="ability-list"></div>
+
+    <p class="meta link-row">
+        <a href="today.html">📅 今日学习</a>
+        <a href="index.html">🏠 自由练习</a>
+        <a href="knowledge_map.html">🗺️ 知识掌握地图</a>
+        <a href="wrong_book.html">📕 错题中心</a>
+        <a href="study_advice.html">💡 学习建议</a>
+    </p>
+
+</div>
+
+<script src="phoebe.js"></script>
+<script src="phoebe3d.js"></script>
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="ability.js"></script>
+
+
+<script>
+  if (window.UIShell) {
+    UIShell.applySettings();
+    UIShell.mountNav("growth");
+    UIShell.loadStudents().then(function (list) {
+      var me = list.filter(function (s) { return String(s.id) === UIShell.getStudentId(); })[0];
+      if (me) UIShell.applyAgeMode(me.grade);
+    });
+  }
+</script>
+</body>
+</html>

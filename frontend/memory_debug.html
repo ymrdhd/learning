@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>菲比同学 · 记忆数据（家长/开发）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🔬 记忆数据（家长 / 开发）</h1>
+
+<div class="card card-wide">
+
+    <div class="row">
+        <label>学生
+            <select id="student" onchange="onStudentChange()"></select>
+        </label>
+        <label>科目
+            <select id="subject" onchange="loadAll()">
+                <option value="">全部</option>
+                <option>数学</option>
+                <option>语文</option>
+                <option>英语</option>
+            </select>
+        </label>
+        <button id="refresh-btn" class="mode-btn" onclick="loadAll(true)">🔄 刷新</button>
+    </div>
+
+    <div id="stats-box" class="summary-box"></div>
+
+    <div class="diag-title">知识点记忆状态</div>
+    <div id="memory-table" class="memory-table"></div>
+
+    <div class="diag-title">今日复习队列</div>
+    <div id="queue-box" class="history-list"></div>
+
+    <div class="diag-title">复习算法日志（每次改复习日期的原因）</div>
+    <div id="log-box" class="history-list"></div>
+
+    <div id="status" class="meta"></div>
+
+    <p class="meta link-row">
+        <a href="review.html">🌱 知识浇水（儿童端）</a>
+        <a href="today.html">📅 今日学习</a>
+        <a href="index.html">🏠 自由练习</a>
+        <a href="knowledge_map.html">🗺️ 知识地图</a>
+        <a href="wrong_book.html">📕 错题中心</a>
+    </p>
+
+</div>
+
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="memory_debug.js"></script>
+
+
+<script>
+  if (window.UIShell) { UIShell.applySettings(); }
+</script>
+</body>
+</html>

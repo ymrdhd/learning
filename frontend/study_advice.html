@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>学习建议 · 菲比同学</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>💡 学习建议</h1>
+
+<div class="card">
+
+<p class="diag-intro">每天进步一点点，跟着建议练一练就好啦～</p>
+
+<div class="row">
+    <label>我是
+        <select id="student" onchange="onStudentChange()"></select>
+    </label>
+</div>
+
+<p class="diag-title">选择科目</p>
+
+<div class="subject-picker" id="subjects">
+    <button class="subject-card active" data-subject="数学" onclick="selectSubject('数学')">🔢 数学</button>
+    <button class="subject-card" data-subject="语文" onclick="selectSubject('语文')">📖 语文</button>
+    <button class="subject-card" data-subject="英语" onclick="selectSubject('英语')">🔤 英语</button>
+</div>
+
+<div id="advice"></div>
+
+<div id="weak"></div>
+
+<div id="errors"></div>
+
+<div id="mastered"></div>
+
+<div id="footer"></div>
+
+<div id="hint" class="meta"></div>
+
+<p class="meta link-row">
+    <a href="index.html">← 回到日常练习</a>
+    <a href="diagnostic.html">🧪 能力诊断</a>
+    <a href="knowledge_map.html">🗺️ 知识掌握地图</a>
+    <a href="wrong_book.html">📕 错题中心</a>
+</p>
+
+</div>
+
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="study_advice.js"></script>
+
+
+<script>
+  if (window.UIShell) {
+    UIShell.applySettings();
+    UIShell.mountNav("growth");
+    UIShell.loadStudents().then(function (list) {
+      var me = list.filter(function (s) { return String(s.id) === UIShell.getStudentId(); })[0];
+      if (me) UIShell.applyAgeMode(me.grade);
+    });
+  }
+</script>
+</body>
+</html>

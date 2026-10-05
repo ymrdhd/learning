@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>我的成长 · 菲比同学</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 顶部：我是谁 -->
+<div class="card">
+    <div class="ph-topbar">
+        <span class="ph-avatar" aria-hidden="true">🐼</span>
+        <div class="ph-who">
+            <span class="ph-who-name" id="who-name">小朋友</span>
+            <span class="ph-who-grade ph-num" id="who-grade"></span>
+        </div>
+        <button type="button" class="ph-btn ph-btn--ghost" id="switch-student" onclick="toggleStudentPicker()">切换学生</button>
+    </div>
+    <div class="ph-students hidden" id="student-picker"></div>
+
+    <h1 class="ph-title">🗺 我的成长</h1>
+    <p class="ph-lead">菲比会帮你记住：你最近学会了什么、记牢了什么。</p>
+</div>
+
+<!-- 周成长四格（组件自带卡片，不再套一层） -->
+<div id="growth-summary"></div>
+<div id="growth-status"></div>
+
+<!-- 知识地图 -->
+<section class="card">
+    <h2 class="ph-section-title">知识地图</h2>
+    <p class="ph-lead">点一个区域，看看那里你学到哪里啦。</p>
+    <div id="growth-map"></div>
+</section>
+
+<!-- 学习日历：完成当天的小任务就自动打个卡 -->
+<section class="card">
+    <h2 class="ph-section-title">学习日历</h2>
+    <p class="ph-lead">完成当天的学习任务，这里就会亮起一个小太阳。</p>
+    <div id="growth-calendar"></div>
+</section>
+
+<!-- 想再看一眼（次级入口，不是主行动） -->
+<div class="card">
+    <h2 class="ph-section-title">想再看一眼</h2>
+    <p class="ph-row-secondary">
+        <a class="ph-btn ph-btn--secondary" href="study_advice.html">学习建议</a>
+        <a class="ph-btn ph-btn--secondary" href="ability.html">我的能力</a>
+        <a class="ph-btn ph-btn--secondary" href="habit.html">学习习惯</a>
+    </p>
+</div>
+
+<script src="ui-shell.js"></script>
+<script src="kid-lang.js"></script>
+<script src="ui-components.js"></script>
+<script src="growth.js"></script>
+<script>
+    // 页面初始化：显示设置 → 一级导航 → 拉取成长数据
+    UIShell.applySettings();
+    UIShell.mountNav("growth");
+    GrowthPage.init();
+</script>
+</body>
+</html>
