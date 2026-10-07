@@ -338,7 +338,7 @@ seeded = [
     (1, "数学", "两步计算应用题", 8, 4, "LEARNING"),
     (1, "数学", "表内除法", 12, 18, "LEARNING+RELEARN"),
     (1, "英语", "颜色", 20, 0, "STABLE"),
-    (1, "语文", "拼音与声调", 13, 2, "CONSOLIDATING"),
+    (1, "语文", "拼音拼读", 13, 2, "CONSOLIDATING"),
     (2, "数学", "20以内加减法", 3, 7, "LEARNING+RELEARN"),
 ]
 mastery_snapshot = {}
@@ -455,8 +455,8 @@ check("迁移：≥85 → STABLE",
       states_a[("数学", "表内乘法")]["maturity"] == "STABLE",
       states_a[("数学", "表内乘法")]["maturity"])
 check("迁移：70~84 → CONSOLIDATING",
-      states_a[("语文", "拼音与声调")]["maturity"] == "CONSOLIDATING",
-      states_a[("语文", "拼音与声调")]["maturity"])
+      states_a[("语文", "拼音拼读")]["maturity"] == "CONSOLIDATING",
+      states_a[("语文", "拼音拼读")]["maturity"])
 check("迁移：60~69 → LEARNING",
       states_a[("数学", "两步计算应用题")]["maturity"] == "LEARNING",
       states_a[("数学", "两步计算应用题")]["maturity"])

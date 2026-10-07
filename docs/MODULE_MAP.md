@@ -55,7 +55,7 @@
 | 主动回忆（V2.5，基础版） | `backend/active_recall.py` | `ActiveRecallEngine.start` `answer` `history` `summary` `card_bank` `card_dict` `judge` `child_level` `DEFAULT_ENGINE` | `active_recall_record` `answer_records` `knowledge_memory_state` | recall |
 | 主动回忆 API（V2.5） | `backend/active_recall_routes.py` | `/api/active-recall/start` `answer` `summary` | 同上 | recall |
 | 每日总结（V2.5，**只读聚合**） | `backend/daily_routes.py` | `GET /api/daily-summary/{student_id}` | 只读（任务 / 画像 / 回忆 / 康复 / 目标） | recall |
-| 数据库与迁移 | `backend/database.py` | `ensure_schema` `migrate_data` `get_db` `SessionLocal` `engine` | — | knowledge |
+| 数据库与迁移 | `backend/database.py` | `ensure_schema` `migrate_data` `KNOWLEDGE_RENAMES` `get_db` `SessionLocal` `engine` | — | knowledge |
 | 表模型 | `backend/models.py` | `Base` + 25 个模型类 | 全部 | 全部 |
 | 默认用户 | `backend/local_users.py` | `init_default_users` | `students` | flow |
 | 用户数据备份与重置（家长端） | `backend/user_routes.py` | `reset_preview` `reset_student` `router`（`GET /api/user/{student_id}/reset-preview`、`POST /api/user/{student_id}/reset`） | 备份并清空 20 张含 `student_id` 的表（保留 `students` 行本身） | userreset |
@@ -230,7 +230,7 @@
 | 改手机端观感 / 页面 viewport | `frontend/style.css`（≤720px 手机档）、各 `frontend/*.html` 的 viewport 元信息 | `node frontend/verify_ui_shell.js` |
 | 改知识三页 | `frontend/knowledge_map.js`、`wrong_book.js`、`study_advice.js` | `node frontend/verify_knowledge_web.js` |
 | 改复习页 / 记忆调试页 | `frontend/review.js`、`memory_debug.js` | `node frontend/verify_memory_web.js` |
-| 改数据库 schema / 迁移 | `models.py`、`database.py`（**只能加列**） | `python backend/verify_knowledge.py` |
+| 改数据库 schema / 迁移 | `models.py`、`database.py`（**只能加列**；知识点改名走 `KNOWLEDGE_RENAMES`） | `python backend/verify_knowledge.py` |
 | 改错题康复状态机 / 策略 / 提示分级 | `recovery/state.py`、`recovery/strategy.py`、`recovery/engine.py` | `python backend/verify_recovery.py` |
 | 改每日计划配比 / 年级时长 / 休息保护 | `habit.py`、`models.py`（`LearningHabitProfile`） | `python backend/verify_habit.py`、`python backend/verify_active_recall.py` |
 | 加 / 改主动回忆卡片与记忆增益 | `active_recall.py` | `python backend/verify_active_recall.py` |

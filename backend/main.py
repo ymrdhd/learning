@@ -163,9 +163,10 @@ except Exception:
 _db.close()
 
 # 家庭自用阶段先只做数学；语文/英语的知识点库属于 V1.6 范围
+# 语文默认跟着 frontend/app.js 的 DEFAULT_KNOWLEDGE 走同一块：1.1「拼音拼读」（声母 + 韵母合拼）
 DEFAULT_KNOWLEDGE = {
     "数学": "20以内加减法",
-    "语文": "拼音与组词",
+    "语文": "拼音拼读",
     "英语": "26个字母",
 }
 

@@ -311,7 +311,7 @@ check("语文：给出字词类错因", chinese_rule["error_type"] in error_anal
 
 plain_choice = Row("语文", "下面哪个字的读音是 dà？", "A",
                    options='{"A": "大", "B": "太", "C": "天", "D": "犬"}',
-                   knowledge="拼音与声调", difficulty=15)
+                   knowledge="拼音拼读", difficulty=15)
 check("语文：普通选择题不会被误判成阅读类错因",
       error_analysis.rule_analyze("语文", plain_choice, "B")["error_type"] == "字词错误",
       error_analysis.rule_analyze("语文", plain_choice, "B")["error_type"])

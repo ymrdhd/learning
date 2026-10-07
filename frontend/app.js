@@ -13,9 +13,11 @@
 const API = (typeof location !== "undefined" && /^https?:$/.test(location.protocol || ""))
     ? location.origin : "http://127.0.0.1:8000";
 
+// 没选知识点、也没挑出能力点时的兜底知识点：必须和 backend/stages.py 的 KNOWLEDGE 首块一致。
+// 语文起点是「拼音拼读」（声母 + 韵母合拼），不是「拼音与声调」——声调要到 1.3 才学。
 const DEFAULT_KNOWLEDGE = {
     "数学": "20以内加减法",
-    "语文": "拼音与声调",
+    "语文": "拼音拼读",
     "英语": "26个字母"
 };
 

@@ -275,7 +275,7 @@ try:
                           params={"student_id": STUDENT_ID, "subject": "语文", "qtype": "choice"},
                           timeout=20).json()
     check("原有出题字段仍在", {"question_id", "qtype", "options", "difficulty", "stage"} <= set(legacy), sorted(legacy))
-    check("语文默认知识点生效", legacy["knowledge"] == "拼音与组词", legacy["knowledge"])
+    check("语文默认知识点生效", legacy["knowledge"] == "拼音拼读", legacy["knowledge"])
 
 finally:
     # 无论前面怎么退出都要收干净，否则残留进程会占住端口、污染下一次运行

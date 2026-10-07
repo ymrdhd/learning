@@ -251,7 +251,7 @@ def task_case():
     with SessionLocal() as db:
         db.add(DailyLearningTask(student_id=STUDENT_D, date=points.today_text(),
                                  task_type="review", title="语文 · 复习恢复", subject="语文",
-                                 knowledge_id="拼音与声调", target_count=1, complete_count=1,
+                                 knowledge_id="拼音拼读", target_count=1, complete_count=1,
                                  duration_minutes=5, target_minutes=5, status="done",
                                  priority=2, source="plan", created_time=datetime.now()))
         db.commit()

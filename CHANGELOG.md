@@ -38,6 +38,18 @@
   两页打开时自动调 `POST /api/points/{id}/login` 领登录奖励（幂等，失败不影响看积分与做任务）。
 - `backend/points_rewards.py`：第一版明细里「登录、停留、点击 0 分」改为「停留、点击、刷页面 0 分」——登录现在另有 +10 奖励，避免明细自相矛盾。
 
+### 5. 语文开局降难度：起点知识点改「拼音拼读」（只考声母 + 韵母合拼，不考调号）
+
+- 背景：语文 1.1 原本是「拼音与声调」，第 1 题就考调号（`「大」的拼音是？dà`），开局难度偏高。现在起点改为**合拼**，声调挪到 1.3「韵母与声调」再学。
+- 唯一真相改名：`backend/stages.py:76` 语文第一块 `"1.1": "拼音拼读"`；同步 `backend/knowledge_tree.py:56`（DOMAINS 列表）与 `:132`（`SUBPOINTS["拼音拼读"]`，避免留下孤儿父键）、`backend/adaptive/strategy.py:127`（`"笔画与笔顺": ["拼音拼读"]`，这条依赖边就是语文的起步锚）、`frontend/app.js:17,20`（`DEFAULT_KNOWLEDGE` 兜底值 + 注释）。**三处必须同时改**，否则 `knowledge_tree.node_rows()` 会 `raise ValueError("语文的知识点「…」没有对应的能力阶段")` 直接崩启动。
+- `backend/bank_chinese.py` 1.1 题库重写为 6 道合拼题（`b+a→ba`、`m+a→ma`、`「妈」的声母`、`「兔」的声母`、`「哥」的声母`、两拼音节辨认），答案为纯音节 / 声母，**不含调号**；格式仍守 3 个互不相同且不等于答案的错误选项。
+- `backend/ai_recovery.py:590` 新增拼读分支（`拼 / 拼音 / 声母 / 韵母` 命中即走），老库里遗留的「拼音与声调」也会落到这条上；无名兜底那组 `dà/huā/shuǐ` 保留并继续注明声调。
+- `backend/active_recall.py:136` 卡片 `c_pinyin_tone`（“妈”是第几声）→ `c_pinyin_blend`（“妈”的声母是什么），答案 `m`。
+- `backend/deep_learning/explanation_engine.py` 概念表父键同步改名（声母 + 韵母拼成音节 / 声调表示音高的变化）。
+- **老库数据迁移**：`backend/database.py` 新增 `KNOWLEDGE_RENAMES`（第 104-156 行），由 23 条 `UPDATE {表} SET {列} = '拼音拼读' WHERE {列} = '拼音与声调'` + 2 条 JSON 列 `replace(...)` 生成，挂在 `migrate_data()` 的 `MIGRATIONS` 之后逐条执行、逐条吞异常，**幂等**；新名本来不可能被旧版本写入，因此不会撞各表的「学生 + 知识点」唯一索引。启动顺序天然正确：`migrate_data()`（`backend/main.py:68`，改名）→ `knowledge_tree.ensure_seeded`（`:144`，建新节点）→ `link_mastery`（`:145`，重挂掌握记录）。
+- 改名不改判分：`backend/grading.py` 未动；`backend/error_analysis.py` 对非阅读类语文题一律回「字词错误」，`backend/verify_knowledge.py` 的断言因此与知识点字面值无关。
+- 测试 fixture 里的旧名同步为「拼音拼读」（`backend/verify_knowledge.py`、`verify_memory.py`、`verify_phoebe_ai.py`、`verify_points.py`、`verify_review.py`）；`frontend/verify_v26_web.js` 里的旧名是前端 mock 任务数据，与后端知识点名无关，刻意不动。
+
 ---
 
 ## V2.6 — 儿童体验重构 + 健康学习习惯 + 知识地图 + 成长中心 + 分龄 UI

@@ -109,8 +109,8 @@ records = [
     ("数学", "100以内加减法", 45, True, now - timedelta(minutes=10)),
     ("数学", "100以内加减法", 45, True, now - timedelta(days=1)),
     ("数学", "100以内加减法", 45, True, now - timedelta(days=1)),
-    ("语文", "拼音与声调", 25, False, now - timedelta(minutes=40)),
-    ("语文", "拼音与声调", 25, False, now - timedelta(minutes=35)),
+    ("语文", "拼音拼读", 25, False, now - timedelta(minutes=40)),
+    ("语文", "拼音拼读", 25, False, now - timedelta(minutes=35)),
 ]
 for subject, knowledge, difficulty, correct, when in records:
     db.add(AnswerRecord(student_id=1, subject=subject, knowledge=knowledge,
@@ -126,9 +126,9 @@ db.add(StudentKnowledgeMastery(student_id=1, subject="英语", knowledge_id="26�
                                wrong_questions=0, next_review_time=now + timedelta(days=3)))
 
 # 错题本：2 道未掌握
-db.add(WrongQuestion(student_id=1, subject="语文", knowledge_id="拼音与声调",
+db.add(WrongQuestion(student_id=1, subject="语文", knowledge_id="拼音拼读",
                      question_id=1, status="NEW", wrong_count=2))
-db.add(WrongQuestion(student_id=1, subject="语文", knowledge_id="拼音与声调",
+db.add(WrongQuestion(student_id=1, subject="语文", knowledge_id="拼音拼读",
                      question_id=2, status="NEW", wrong_count=1))
 
 db.commit()
@@ -158,8 +158,8 @@ check("prompt 带上学习数据 JSON", '"需要补强"' in prompt and "20以内
 check("prompt 明确不许编造数据", "不要编造数据里没有的内容" in prompt)
 check("prompt 明确不要 Markdown 与 emoji", "不要 Markdown" in prompt and "不要 emoji" in prompt)
 
-wrong_prompt = phoebe_ai.build_prompt(snapshot, "wrong", {"knowledge": "拼音与声调"})
-check("答错场景的 prompt 会带上刚错的知识点", "拼音与声调" in wrong_prompt)
+wrong_prompt = phoebe_ai.build_prompt(snapshot, "wrong", {"knowledge": "拼音拼读"})
+check("答错场景的 prompt 会带上刚错的知识点", "拼音拼读" in wrong_prompt)
 check("答错场景的 prompt 说明是答错", "答错" in wrong_prompt)
 
 # ---------------- 4. 快照聚合 ----------------

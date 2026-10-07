@@ -587,12 +587,24 @@ def _chinese_template(seed, difficulty, variant=0):
         ]
         task, answer, wrong, analysis = _pick(frames, variant)
         return _make_choice(task, answer, wrong, analysis)
+    # 语文开局是「拼音拼读」：只考声母 + 韵母合拼，不单独考四声（声调属于 1.3「韵母与声调」）。
+    # "拼音" 单独判断，老库里遗留的「拼音与声调」也能落到这条上来。
+    if "拼" in knowledge or "拼音" in knowledge or "声母" in knowledge or "韵母" in knowledge:
+        pairs = [("声母 b 和韵母 a 拼在一起，读出来是哪个音节？", "ba", ["bo", "pa", "da"]),
+                 ("声母 m 和韵母 a 拼在一起，读出来是哪个音节？", "ma", ["mo", "na", "fa"]),
+                 ("「妈」的声母是下面哪一个？", "m", ["b", "d", "h"]),
+                 ("「兔」的声母是下面哪一个？", "t", ["m", "h", "sh"]),
+                 ("下面哪个字的声母是 g？", "哥", ["花", "书", "妈"]),
+                 ("下面哪个音节是两拼音节（声母 + 韵母）？", "ma", ["xia", "gua", "hua"])]
+        task, answer, wrong = _pick(pairs, variant)
+        return _make_choice(task, answer, wrong,
+                            f"{task} 答案是 {answer}：先读轻短的声母，再接响亮的韵母，连起来就是它。")
     pairs = [("「大」的拼音是？", "dà", ["dá", "tà", "bà"]), ("「花」的拼音是？", "huā", ["huá", "hà", "guā"]),
              ("「水」的拼音是？", "shuǐ", ["shuī", "suǐ", "shǔi"]), ("「天」的拼音是？", "tiān", ["tān", "diān", "tiàn"]),
              ("「火」的拼音是？", "huǒ", ["huō", "hǒu", "huò"]), ("「土」的拼音是？", "tǔ", ["tū", "dǔ", "tù"]),
              ("「云」的拼音是？", "yún", ["yūn", "yǔn", "yuán"])]
     task, answer, wrong = _pick(pairs, variant)
-    return _make_choice(task, answer, wrong, f"{task}{answer}，读的时候注意声调。")
+    return _make_choice(task, answer, wrong, f"{task}答案是 {answer}，读的时候注意声调。")
 
 
 

@@ -509,7 +509,7 @@ def _bank_pool(subject, key):
     bank = BANKS.get(subject) or {}
     pool = bank.get(key) or []
     if not pool:
-        # 细分阶段（如 1.2「声母」）还没有自己的题时，用旧键（1.1「拼音与声调」）兜底
+        # 细分阶段（如 1.2「声母」）还没有自己的题时，用旧键（1.1「拼音拼读」）兜底
         pool = bank.get(stages.legacy_key(key)) or []
     return pool
 
